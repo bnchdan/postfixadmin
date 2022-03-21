@@ -38,6 +38,7 @@
                                         </select>
                                     {elseif $field.type == 'list'}
 					<input type="text" class="form-control" style="margin-bottom : 25px;" id="id_searchDomains" onkeyup="searchDomains()" placeholder="Search for domains..." title="search domains">
+					
 					<ul id="domainsList" name="value[{$key}][]" style="max-height : 250px; overflow: auto;">
 					{foreach from=$struct.{$key}.options item=domain}
                                                 <li>
