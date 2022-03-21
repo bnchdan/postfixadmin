@@ -7,7 +7,7 @@
 
             {foreach key=key item=field from=$struct}
                 {if $field.display_in_form == 1}
-
+			
                     {if $table == 'foo' && $key == 'bar'}
                         <div class="form-group">Special handling (complete table row) for {$table} / {$key}</div>
                     {else}
@@ -24,7 +24,7 @@
                                     {if $table == 'foo' && $key == 'bar'}
                                         Special handling (td content) for {$table} / {$key}
                                     {elseif $field.type == 'bool'}
-                                        <div class="checkbox"><label>
+                                           <div class="checkbox"><label>
                                                 <input type="checkbox" value='1'
                                                        name="value[{$key}]"{if {$value_{$key}} == 1} checked="checked"{/if}/>
                                             </label></div>
@@ -33,16 +33,16 @@
                                             {html_options output=$struct.{$key}.options values=$struct.{$key}.options selected=$value_{$key}}
                                         </select>
                                     {elseif $field.type == 'enma'}
-                                        <select class="form-control" name="value[{$key}]" id="{$key}">
+					<select class="form-control" name="value[{$key}]" id="{$key}">
                                             {html_options options=$struct.{$key}.options selected=$value_{$key}}
                                         </select>
                                     {elseif $field.type == 'list'}
-				    	<input type="text" class="form-control" style="margin-bottom : 25px;" id="id_searchDomains" onkeyup="searchDomains()" placeholder="Search for domai$
-                                        <ul id="domainsList" name="value[{$key}][]" style="max-height : 250px; overflow: auto;">
-                                        {foreach from=$struct.{$key}.options item=domain}
+					<input type="text" class="form-control" style="margin-bottom : 25px;" id="id_searchDomains" onkeyup="searchDomains()" placeholder="Search for domains..." title="search domains">
+					<ul id="domainsList" name="value[{$key}][]" style="max-height : 250px; overflow: auto;">
+					{foreach from=$struct.{$key}.options item=domain}
                                                 <li>
                                                         <input type="checkbox" name="value[{$key}][]" value="{$domain}" id="{$domain}_id" />
-                                                        <label for="{$domain}_id">{$domain}</label>
+                                                        <label  for="{$domain}_id">{$domain}</label>
                                                 </li>
                                         {/foreach}
                                         </ul>
@@ -62,6 +62,7 @@
                                     {if $fielderror.{$key}}
                                         <span class="help-block">{$fielderror.{$key}}</span>
                                     {else}
+			
                                         <span class="help-block">{$field.desc}</span>
                                     {/if}
                                 {/if}
@@ -87,24 +88,25 @@
     </div>
 </form>
 
+
 <script type="text/javascript">
-        
-        function searchDomains(){
-                input = document.getElementById("id_searchDomains").value.toLowerCase();
-                ul = document.getElementById("domainsList");
-                li = ul.getElementsByTagName("li");
-                for (i=0; i< li. length; i++){
-                        //get domain
-                        domain = li[i].innerHTML.split('<label')[1].split('>')[1].split('</label')[0];
-
-                        //if domain = input
-                        if (domain.indexOf(input) > -1) {
-                                li[i].style.display = "";
-                        }else{
-                                li[i].style.display = "none";
-                        }
-
-                }
-        }
+	
+	function searchDomains(){
+		input = document.getElementById("id_searchDomains").value.toLowerCase();
+		ul = document.getElementById("domainsList");
+		li = ul.getElementsByTagName("li");
+		for (i=0; i< li. length; i++){
+			//get domain
+			domain = li[i].innerHTML.split('<label')[1].split('>')[1].split('</label')[0];
+					
+			//if domain = input 
+			if (domain.indexOf(input) > -1) {
+				li[i].style.display = ""; 		
+        		}else{
+				li[i].style.display = "none";
+			}
+			
+		}
+	}
 
 </script>
